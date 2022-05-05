@@ -13,5 +13,4 @@ public class QrcrazeApplication {
 		SpringApplication.run(QrcrazeApplication.class, args);
 	}
 
-
 }
