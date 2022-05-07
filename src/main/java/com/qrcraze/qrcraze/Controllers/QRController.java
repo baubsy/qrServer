@@ -1,5 +1,6 @@
 package com.qrcraze.qrcraze.Controllers;
 
+import com.qrcraze.qrcraze.Data.QrNotFoundException;
 import com.qrcraze.qrcraze.Data.QrRepository;
 import com.qrcraze.qrcraze.Models.QR;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,10 @@ public class QRController {
             qrUpdate.incScore();
             qrRepository.save(qrUpdate);
             return qrUpdate;
+        } else{
+            throw(new QrNotFoundException(qrId));
         }
-        return retQR;
+
     }
 }
 
