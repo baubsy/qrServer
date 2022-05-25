@@ -38,11 +38,20 @@ public class AuthController {
 
         if(gToken != null){
             //TODO check if registered already, if so just sign in
+
+
+
             Payload payload = gToken.getPayload();
             String email = (String) payload.getEmail();
             String sub = payload.getSubject();
-            userRepository.save(new User(email, email, sub));
-            return new LoginResponse("registered");
+            Optional<User> currentUser = userRepository.findBygoogleID(sub);
+            if(currentUser.isPresent()){
+                return new LoginResponse("already registered");
+            } else{
+                userRepository.save(new User(email, email, sub));
+                return new LoginResponse("registered");
+            }
+
         } else{
             return new LoginResponse("bad token");
         }
